@@ -35,8 +35,5 @@ export class BinhLuanController {
 
   
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.binhLuanService.remove(+id);
-  }
+  
 }

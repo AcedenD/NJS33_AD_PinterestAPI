@@ -9,18 +9,57 @@ export class LuuAnhService {
 
   model = new PrismaClient()
 
-  create(createLuuAnhDto: CreateLuuAnhDto) {
-    return 'This action adds a new luuAnh';
+  async create(createLuuAnhDto: CreateLuuAnhDto, user_id:number) {
+
+    const hinh_anh = await this.model.hinh_anh.findFirst({
+      where:{
+        hinh_id: +createLuuAnhDto.hinh_id
+      }
+    })
+
+    if(hinh_anh){
+      const da_luu = this.model.luu_anh.findFirst({
+        where: {
+          hinh_id: +createLuuAnhDto.hinh_id,
+          nguoi_dung_id: user_id
+        }
+
+      })
+
+      if(da_luu){
+        return "User không được lưu cùng một hình"
+      }else{
+        const luu_anh = await this.model.luu_anh.create({
+          data:{
+            hinh_id: +createLuuAnhDto.hinh_id,
+            nguoi_dung_id: user_id,
+            ngay_luu: new Date()
+          }
+        })
+    
+        return 'User đã lưu ảnh thành công ';
+      }
+    }else{
+      return "Hình ảnh không tồn tại"
+    }
   }
 
-  findAll() {
-    return `This action returns all luuAnh`;
+  async findAll(user_id:number) {
+    const da_luu = await this.model.luu_anh.findMany({
+      where:{
+        nguoi_dung_id:user_id
+      }
+    })
+
+    return da_luu;
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, user_id: number) {
+
     const da_luu = await this.model.luu_anh.findFirst({
       where: {
-        hinh_id: id
+        hinh_id: id,
+        nguoi_dung_id: user_id
       }
     })
     

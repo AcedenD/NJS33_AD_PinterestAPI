@@ -61,14 +61,34 @@ async findAll() {
       }
     })
   
-    return {
-      ho_ten: nguoi_dung.ho_ten,
-      anh_dai_dien: nguoi_dung.anh_dai_dien,
-    };
+    return nguoi_dung;
   }
 
-  update(id: number, updateNguoiDungDto: UpdateNguoiDungDto) {
-    return `This action updates a #${id} nguoiDung`;
+  async update( updateNguoiDungDto: UpdateNguoiDungDto, user_id:number) {
+    const nguoi_dung = await this.model.nguoi_dung.findFirst({
+      where:{
+        email:updateNguoiDungDto.email
+      }
+    })
+    if(nguoi_dung){
+      return "Bạn không thể sử dụng email này"
+    }else{
+      const new_info = await this.model.nguoi_dung.update({
+        where:{
+          nguoi_dung_id: user_id
+        },
+        data:{
+          email: updateNguoiDungDto.email,
+          mat_khau: updateNguoiDungDto.mat_khau,
+          ho_ten: updateNguoiDungDto.ho_ten,
+          tuoi: updateNguoiDungDto.tuoi
+        }
+      })
+
+      return "Update info thành công"
+    }
+
+    
   }
 
   remove(id: number) {

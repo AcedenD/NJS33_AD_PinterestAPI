@@ -13,8 +13,8 @@ export class HinhAnhService {
     return createHinhAnhDto;
   }
 
-  async uploadHinhAnh(file, createAuthDto: CreateHinhAnhDto) {
-    const nguoi_dung = await this.model.nguoi_dung.findFirst({where: {nguoi_dung_id: +createAuthDto.nguoi_dung_id}});
+  async uploadHinhAnh(file, createAuthDto: CreateHinhAnhDto, user_id) {
+    const nguoi_dung = await this.model.nguoi_dung.findFirst({where: {nguoi_dung_id: user_id}});
 
     if(nguoi_dung){
       const hinhAnh = await this.model.hinh_anh.create({
@@ -22,12 +22,12 @@ export class HinhAnhService {
           ten_hinh: createAuthDto.ten_hinh,
           duong_dan: file.path,
           mo_ta: createAuthDto.mo_ta,
-          nguoi_dung_id: +createAuthDto.nguoi_dung_id,
+          nguoi_dung_id: user_id,
         },
       });
-      return hinhAnh;
+      return returnMessage("Thêm hình thành công",hinhAnh);
     }else {
-      return "Người dùng không tồn tại"
+      return "Bạn không có quyền thêm hình"
     }
   }
 
@@ -37,7 +37,7 @@ export class HinhAnhService {
   }
 
   async findOneByTen(ten_hinh: string) {
-    const hinhAnh = await this.model.hinh_anh.findFirst({where: {ten_hinh: {contains: ten_hinh}}});
+    const hinhAnh = await this.model.hinh_anh.findMany({where: {ten_hinh: {contains: ten_hinh}}});
 
     return hinhAnh ? hinhAnh : "Không tìm thấy hình ảnh có tên bao gồm '" + ten_hinh + "'";
   }
@@ -51,19 +51,29 @@ export class HinhAnhService {
     return `This action updates a #${id} hinhAnh`;
   }
 
-  async remove(id: number) {
+  async remove(id: number, user_id:number) {
 
 
-    const hinhAnh = await this.model.hinh_anh.findFirst({where: {hinh_id: id}});
+    const hinhAnh = await this.model.hinh_anh.findFirst({where: {hinh_id: id, nguoi_dung_id:user_id}});
 
     if(hinhAnh) {
       const deleteLuuAnh = await this.model.luu_anh.deleteMany({where: {hinh_id: id}});
 
       const deleteBinhLuan = await this.model.binh_luan.deleteMany({where: {hinh_id: id}});
 
-      const hinhAnh = await this.model.hinh_anh.delete({where: {hinh_id: id}});
+      const hinhAnh = await this.model.hinh_anh.delete({where: {hinh_id: id, nguoi_dung_id:user_id}});
       return returnMessage("Xóa thành công", hinhAnh) ;
     }
-    return "Không tìm thấy hình ảnh có id: " + id;
+    return "Bạn không có quyền xoá hình này";
+  }
+
+  async findAllDaTao(user_id:number){
+    const da_tao = await this.model.hinh_anh.findMany({
+      where:{
+        nguoi_dung_id: user_id
+      }
+    })
+
+    return da_tao
   }
 }

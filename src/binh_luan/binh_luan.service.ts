@@ -11,7 +11,6 @@ export class BinhLuanService {
   model = new PrismaClient();
 
   async create(createBinhLuanDto: CreateBinhLuanDto, userId: number) {
-   
 
     const hinh = await this.model.hinh_anh.findFirst({where: {hinh_id: createBinhLuanDto.hinh_id}});
 
@@ -38,9 +37,18 @@ export class BinhLuanService {
   }
 
   async findBinhLuanForHinh(id: number) {
-    const binhLuan = await this.model.binh_luan.findMany({where: {hinh_id: id}});
+
+    const hinh = await this.model.hinh_anh.findFirst({where: {hinh_id: id}});
+
+    if(hinh){
+      const binhLuan = await this.model.binh_luan.findMany({where: {hinh_id: id}});
     
-    return binhLuan.length > 0 ? binhLuan : "Không tìm thấy bình luận cho hình ảnh này" ;
+      return binhLuan.length > 0 ? binhLuan : "Không tìm thấy bình luận cho hình ảnh này" ;
+    }
+
+    return "Không tìm thấy hình ảnh này";
+
+    
   }
 
   update(id: number, updateBinhLuanDto: UpdateBinhLuanDto) {

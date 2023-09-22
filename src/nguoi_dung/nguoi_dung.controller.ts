@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Req, Put } from '@nestjs/common';
 import { NguoiDungService } from './nguoi_dung.service';
 import { CreateNguoiDungDto } from './dto/create-nguoi_dung.dto';
 import { UpdateNguoiDungDto } from './dto/update-nguoi_dung.dto';
 
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
+import { getDataFromToken } from 'src/util/helper';
 
 @ApiTags("NguoiDung")
 @Controller('nguoi-dung')
@@ -29,20 +31,26 @@ export class NguoiDungController {
     return this.nguoiDungService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.nguoiDungService.findOne(+id);
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard("jwt"))
+  @Get('/nguoi-dung-info')
+  findOne(@Req() req:Request) {
+    const nguoi_dung = getDataFromToken(req)
+    let user_id = nguoi_dung.nguoi_dung_id
+    return this.nguoiDungService.findOne(+user_id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNguoiDungDto: UpdateNguoiDungDto) {
-    return this.nguoiDungService.update(+id, updateNguoiDungDto);
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard("jwt"))
+  @Put()
+  update(@Body() updateNguoiDungDto:UpdateNguoiDungDto, @Req() req:Request){
+    const nguoi_dung = getDataFromToken(req)
+    let user_id = nguoi_dung.nguoi_dung_id
+    return this.nguoiDungService.update(updateNguoiDungDto, +user_id )
   }
+  
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.nguoiDungService.remove(+id);
-  }
+  
 
   @Get("/danh-sach-anh-luu/:id")
   danhSachAnhLuu(@Param("id") id: string) {

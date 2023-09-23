@@ -52,13 +52,21 @@ export class NguoiDungController {
 
   
 
-  @Get("/danh-sach-anh-luu/:id")
-  danhSachAnhLuu(@Param("id") id: string) {
-    return this.nguoiDungService.danhSachAnhLuu(+id);
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard("jwt"))
+  @Get("/danh-sach-anh-luu")
+  danhSachAnhLuu(@Req() req:Request) {
+    const nguoi_dung = getDataFromToken(req)
+    let user_id = nguoi_dung.nguoi_dung_id
+    return this.nguoiDungService.danhSachAnhLuu(+user_id);
   }
 
-  @Get("/danh-sach-anh-tao/:id")
-  danhSachAnhTao(@Param("id") id: string) {
-    return this.nguoiDungService.danhSachAnhTao(+id);
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard("jwt"))
+  @Get("/danh-sach-anh-tao")
+  danhSachAnhTao(@Req() req:Request) {
+    const nguoi_dung = getDataFromToken(req)
+    let user_id = nguoi_dung.nguoi_dung_id
+    return this.nguoiDungService.danhSachAnhTao(+user_id);
   }
 }

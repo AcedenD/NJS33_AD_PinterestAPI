@@ -18,7 +18,7 @@ export class LuuAnhService {
     })
 
     if(hinh_anh){
-      const da_luu = this.model.luu_anh.findFirst({
+      const da_luu = await this.model.luu_anh.findMany({
         where: {
           hinh_id: +createLuuAnhDto.hinh_id,
           nguoi_dung_id: user_id
@@ -26,7 +26,7 @@ export class LuuAnhService {
 
       })
 
-      if(da_luu){
+      if(da_luu.length > 0){
         return "User không được lưu cùng một hình"
       }else{
         const luu_anh = await this.model.luu_anh.create({
@@ -39,6 +39,8 @@ export class LuuAnhService {
     
         return 'User đã lưu ảnh thành công ';
       }
+      
+
     }else{
       return "Hình ảnh không tồn tại"
     }
@@ -51,7 +53,7 @@ export class LuuAnhService {
       }
     })
 
-    return da_luu;
+    return da_luu.length > 0 ? da_luu : "User chưa lưu ảnh nào hết";
   }
 
   async findOne(id: number, user_id: number) {

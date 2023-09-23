@@ -78,7 +78,7 @@ async findAll() {
           nguoi_dung_id: user_id
         },
         data:{
-          email: updateNguoiDungDto.email,
+          email:updateNguoiDungDto.email,
           mat_khau: updateNguoiDungDto.mat_khau,
           ho_ten: updateNguoiDungDto.ho_ten,
           tuoi: updateNguoiDungDto.tuoi

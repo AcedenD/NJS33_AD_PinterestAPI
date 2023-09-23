@@ -48,7 +48,7 @@ export class HinhAnhController {
     return this.hinhAnhService.findAllDaTao(+user_id);
   }
 
-  @Get("/hinh-anh-id/:id")
+  @Get("/thong-tinh-anh/:id")
   findOneByID(@Param('id') id: number) {
     return this.hinhAnhService.findOneByID(+id);
   }

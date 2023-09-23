@@ -2,9 +2,9 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateNguoiDungDto } from './create-nguoi_dung.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateNguoiDungDto extends PartialType(CreateNguoiDungDto) {
+export class UpdateNguoiDungDto extends PartialType(CreateNguoiDungDto) { 
   @ApiProperty()
-  email:        string      
+  email: string;   
 
   @ApiProperty()
   mat_khau :     string     

@@ -1,0 +1,53 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2708
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 USE db_pinterest;\
+\
+CREATE TABLE nguoi_dung (\
+    nguoi_dung_id INT PRIMARY KEY AUTO_INCREMENT,\
+    email VARCHAR(200) NOT NULL,\
+    mat_khau VARCHAR(200) NOT NULL,\
+    ho_ten VARCHAR(200),\
+    tuoi INT,\
+    anh_dai_vien VARCHAR(200),\
+    token VARCHAR(200)   \
+);\
+\
+\
+\
+CREATE TABLE hinh_anh (\
+    hinh_id INT PRIMARY KEY AUTO_INCREMENT,\
+    ten_hinh VARCHAR(200),\
+    duong_dan VARCHAR(200),\
+    mo_ta VARCHAR(200),\
+    nguoi_dung_id INT,\
+    FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(nguoi_dung_id)\
+);\
+\
+\
+CREATE TABLE luu_anh (\
+    nguoi_dung_id INT,\
+    hinh_id INT,\
+    ngay_luu DATETIME,\
+    # nguoi_dung_id and hinh_id are both primary key\
+    PRIMARY KEY (nguoi_dung_id, hinh_id),\
+    FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(nguoi_dung_id),\
+    FOREIGN KEY (hinh_id) REFERENCES hinh_anh(hinh_id)\
+);\
+\
+CREATE TABLE binh_luan (\
+    binh_luan_id INT PRIMARY KEY AUTO_INCREMENT,\
+    nguoi_dung_id INT,\
+    hinh_id INT,\
+    ngay_binh_luan DATETIME,\
+    noi_dung VARCHAR(200),\
+    FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(nguoi_dung_id),\
+    FOREIGN KEY (hinh_id) REFERENCES hinh_anh(hinh_id)\
+);\
+\
+\
+}

@@ -1,0 +1,423 @@
+{
+	"info": {
+		"_postman_id": "9f6c689a-00be-49ba-bf61-2f8b82048ec4",
+		"name": "node33 Pinterest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14870973"
+	},
+	"item": [
+		{
+			"name": "get all nguoi dung",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjIsImVtYWlsIjoiYWRlbkBnbWFpbC5jb20iLCJtYXRfa2hhdSI6IjEyMzQiLCJob190ZW4iOiJhZGVuIGQiLCJ0dW9pIjoyMywiYW5oX2RhaV9kaWVuIjpudWxsLCJ0b2tlbiI6bnVsbH0sImlhdCI6MTY5NTE5NDQyMywiZXhwIjoxNjk1Nzk5MjIzfQ.RYdQHSu055Zqii3VaM8Q2YLxxL4A1zL4UWnZLCjGBjU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{domain}}/nguoi-dung",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"nguoi-dung"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "them hinh anh",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjIsImVtYWlsIjoiYWRlbkBnbWFpbC5jb20iLCJtYXRfa2hhdSI6IjEyMzQiLCJob190ZW4iOiJhZGVuIGQiLCJ0dW9pIjoyMywiYW5oX2RhaV9kaWVuIjpudWxsLCJ0b2tlbiI6bnVsbH0sImlhdCI6MTY5NTM3NDkxNywiZXhwIjoxNjk1OTc5NzE3fQ.YNChGKqyPrlspPyOZFyo4GgQrnS9q-76Ykae-mQ940I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "hinhAnh",
+							"type": "file",
+							"src": "/Users/adendang/Downloads/vinhDanhXuatXac.7f0fc556.jpg"
+						},
+						{
+							"key": "data",
+							"value": "{\"ten_hinh\":\"them postman\", \"mo_ta\":\"them postman\"}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{domain}}/hinh-anh/them-hinh-anh",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"hinh-anh",
+						"them-hinh-anh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"teasdasdd1@gmail.com\",\n    \"mat_khau\": \"string\",\n    \"ho_ten\": \"tester0\",\n    \"tuoi\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/auth/signUp",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"auth",
+						"signUp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"duy@gmail.com\",\n    \"password\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/auth/login",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all hinh anh",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/hinh-anh/all",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"hinh-anh",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hinh by ten",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/hinh-anh/hinh-anh-ten/:ten_hinh",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"hinh-anh",
+						"hinh-anh-ten",
+						":ten_hinh"
+					],
+					"variable": [
+						{
+							"key": "ten_hinh",
+							"value": "de"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hinh info and user info by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/hinh-anh/hinh-anh-id/:id",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"hinh-anh",
+						"hinh-anh-id",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get binh luan cua hinh",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/binh-luan/binh-luan-cua-hinh/:id",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"binh-luan",
+						"binh-luan-cua-hinh",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "nguoi dung info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjIsImVtYWlsIjoiYWRlbkBnbWFpbC5jb20iLCJtYXRfa2hhdSI6IjEyMzQiLCJob190ZW4iOiJhZGVuIGQiLCJ0dW9pIjoyMywiYW5oX2RhaV9kaWVuIjpudWxsLCJ0b2tlbiI6bnVsbH0sImlhdCI6MTY5NTM3Mjc4MSwiZXhwIjoxNjk1OTc3NTgxfQ.-98AxnKMMnxyQ6ocRtkdi4iYlHTDqBvJksG48x5K40U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/nguoi-dung/nguoi-dung-info",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"nguoi-dung",
+						"nguoi-dung-info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "anh da luu cua user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjEsImVtYWlsIjoidGVzdGluZ0BnbWFpbC5jb20iLCJtYXRfa2hhdSI6IjEyMzEyMyIsImhvX3RlbiI6ImFkZW4iLCJ0dW9pIjoyMSwiYW5oX2RhaV9kaWVuIjpudWxsLCJ0b2tlbiI6bnVsbH0sImlhdCI6MTY5NTM3MzUwMSwiZXhwIjoxNjk1OTc4MzAxfQ.vLfGQqmUO2N8KSgKaw5Tp9t52Pg2egcmjYXmV4jVPv4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/luu-anh/anh-da-luu",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"luu-anh",
+						"anh-da-luu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "and da tao cua user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjEsImVtYWlsIjoidGVzdGluZ0BnbWFpbC5jb20iLCJtYXRfa2hhdSI6IjEyMzEyMyIsImhvX3RlbiI6ImFkZW4iLCJ0dW9pIjoyMSwiYW5oX2RhaV9kaWVuIjpudWxsLCJ0b2tlbiI6bnVsbH0sImlhdCI6MTY5NTM3MzUwMSwiZXhwIjoxNjk1OTc4MzAxfQ.vLfGQqmUO2N8KSgKaw5Tp9t52Pg2egcmjYXmV4jVPv4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/hinh-anh/hinh-da-tao",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"hinh-anh",
+						"hinh-da-tao"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete hinh anh",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjIsImVtYWlsIjoiYWRlbkBnbWFpbC5jb20iLCJtYXRfa2hhdSI6IjEyMzQiLCJob190ZW4iOiJhZGVuIGQiLCJ0dW9pIjoyMywiYW5oX2RhaV9kaWVuIjpudWxsLCJ0b2tlbiI6bnVsbH0sImlhdCI6MTY5NTM3NDkxNywiZXhwIjoxNjk1OTc5NzE3fQ.YNChGKqyPrlspPyOZFyo4GgQrnS9q-76Ykae-mQ940I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{domain}}/hinh-anh/:id",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"hinh-anh",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "anh da luu by user chua",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/luu-anh/da-luu/:id",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"luu-anh",
+						"da-luu",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user info",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"string\",\n  \"mat_khau\": \"string\",\n  \"ho_ten\": \"string\",\n  \"tuoi\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/nguoi-dung",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"nguoi-dung"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "domain",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
